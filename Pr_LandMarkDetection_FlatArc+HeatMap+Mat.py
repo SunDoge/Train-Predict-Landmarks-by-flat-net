@@ -166,23 +166,35 @@ for names in FileNames:
         ImageFileNames.append(names)
 # LMFileNames=listdir(a.target_dir)
 from skimage import io as ioSK
+from skimage import transform
 from numpy import genfromtxt
 
-Images = np.zeros((len(ImageFileNames), 256, 256, 3), dtype=np.uint8)
+"""
+这份代码使用的大小
+"""
+HEIGHT = 256
+WIDTH = 256
+
+Images = np.zeros((len(ImageFileNames), HEIGHT, WIDTH, 3), dtype=np.uint8)
 LandmarkLocations = np.zeros((len(ImageFileNames), 2, 44), dtype=np.uint8)
 
 for i in range(len(ImageFileNames)):
     Image = ioSK.imread(a.input_dir + '/' + ImageFileNames[i])
+    h, w, c = Image.shape
+    Image = transform.resize(Image, (HEIGHT, WIDTH, 3))
     Images[i, :, :, :] = Image
     FileName = ImageFileNames[i]
     FileName = FileName[:-4]
 
     """
     我们的landmark存在mat里面
+    resize成256x256
     """
     # Landmarks0 = genfromtxt(a.target_dir + '/' + FileName + '.csv', delimiter=',')
     # Landmarks0 = Landmarks0.astype(int)
     Landmarks0 = io.loadmat(a.target_dir + '/' + FileName + '.mat')
+    Landmarks0[:, 0] /= w
+    Landmarks0[:, 1] /= h
     Landmarks0 = Landmarks0.astype(int)  # [[x, y]]
 
     LandmarkLocations[i, 0, :] = Landmarks0[:, 0]
