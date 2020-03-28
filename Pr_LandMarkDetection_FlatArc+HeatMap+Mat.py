@@ -25,6 +25,7 @@ import tensorflow.keras
 from tensorflow.keras import regularizers
 from scipy import io
 import argparse
+from tqdm import tqdm, trange
 
 from tensorflow.keras import backend as K
 
@@ -176,9 +177,9 @@ HEIGHT = 256
 WIDTH = 256
 
 Images = np.zeros((len(ImageFileNames), HEIGHT, WIDTH, 3), dtype=np.uint8)
-LandmarkLocations = np.zeros((len(ImageFileNames), 2, 44), dtype=np.uint8)
+LandmarkLocations = np.zeros((len(ImageFileNames), 2, 2), dtype=np.uint8)
 
-for i in range(len(ImageFileNames)):
+for i in trange(len(ImageFileNames)):
     Image = ioSK.imread(a.input_dir + '/' + ImageFileNames[i])
     h, w, c = Image.shape
     Image = transform.resize(Image, (HEIGHT, WIDTH, 3))
