@@ -192,9 +192,10 @@ for i in range(len(ImageFileNames)):
     """
     # Landmarks0 = genfromtxt(a.target_dir + '/' + FileName + '.csv', delimiter=',')
     # Landmarks0 = Landmarks0.astype(int)
-    Landmarks0 = io.loadmat(a.target_dir + '/' + FileName + '.mat')
-    Landmarks0[:, 0] /= w
-    Landmarks0[:, 1] /= h
+    mat = io.loadmat(a.target_dir + '/' + FileName + '.mat')
+    Landmarks0 = np.vstack([mat['leftpoint'], mat['rightpoint']])
+    Landmarks0[:, 0] = Landmarks0[:, 0] / w * WIDTH
+    Landmarks0[:, 1] = Landmarks0[:, 1] / h * HEIGHT
     Landmarks0 = Landmarks0.astype(int)  # [[x, y]]
 
     LandmarkLocations[i, 0, :] = Landmarks0[:, 0]
