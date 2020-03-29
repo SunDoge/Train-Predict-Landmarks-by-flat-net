@@ -25,6 +25,7 @@ import tensorflow.keras
 from tensorflow.keras import regularizers
 from scipy import io
 import argparse
+import pickle
 
 from tensorflow.keras import backend as K
 
@@ -155,15 +156,19 @@ print('============================')
 
 from os import listdir
 
-ImageFileNames = []
-FileNames = listdir(a.input_dir)
-for names in FileNames:
-    """
-    我们的图片是jpg。这写的什么垃圾代码。
-    """
-    # if names.endswith(".png"):
-    if names.endswith('.jpg'):
-        ImageFileNames.append(names)
+# ImageFileNames = []
+# FileNames = listdir(a.input_dir)
+# for names in FileNames:
+#     """
+#     我们的图片是jpg。这写的什么垃圾代码。
+#     """
+#     # if names.endswith(".png"):
+#     if names.endswith('.jpg'):
+#         ImageFileNames.append(names)
+with open('data/train_dict.pkl', 'rb') as f:
+    data = pickle.load(f)
+    ImageFileNames = data['train_list']
+
 # LMFileNames=listdir(a.target_dir)
 from skimage import io as ioSK
 from skimage import transform
