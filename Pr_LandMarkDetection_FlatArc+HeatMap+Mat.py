@@ -166,7 +166,7 @@ from os import listdir
 #     # if names.endswith(".png"):
 #     if names.endswith('.jpg'):
 #         ImageFileNames.append(names)
-with open('data/train_dict.pkl', 'rb') as f:
+with open('data/train_dict_fix.pkl', 'rb') as f:
     data = pickle.load(f)
     ImageFileNames = data['train_list']
 
