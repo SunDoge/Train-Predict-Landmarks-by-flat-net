@@ -168,7 +168,7 @@ from os import listdir
 #         ImageFileNames.append(names)
 with open('data/train_dict_fix.pkl', 'rb') as f:
     data = pickle.load(f)
-    ImageFileNames = data['train_list']
+    ImageFileNames = data[f'{a.mode}_list']
 
 # LMFileNames=listdir(a.target_dir)
 from skimage import io as ioSK
