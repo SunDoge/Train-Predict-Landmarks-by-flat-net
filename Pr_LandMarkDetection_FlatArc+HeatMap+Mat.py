@@ -204,6 +204,7 @@ for i in trange(len(ImageFileNames)):
     Landmarks0[:, 1] = Landmarks0[:, 1] / h * HEIGHT
     Landmarks0 = Landmarks0.astype(int)  # [[x, y]]
 
+    #import ipdb; ipdb.set_trace()
     LandmarkLocations[i, 0, :] = Landmarks0[:, 0]
     LandmarkLocations[i, 1, :] = Landmarks0[:, 1]
 
